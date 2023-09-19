@@ -1,0 +1,46 @@
+<section class="heroSection relative px-2 sm:px-5 lg:px-10">
+  <div
+    class="w-[90%] lg:w-[80%] bg-blue-100 opacity-30 h-full absolute top-0 right-0 -z-10"
+  ></div>
+  <!--  -->
+  <section class="flex gap-4 w-full heroSection items-center">
+    <div class="lg:flex heroSection hidden items-end mr-4">
+      <button
+        (click)="scrollDown()"
+        class="btn btn-outline hover:bg-main-500 rotate-90"
+      >
+        Scroll <ng-icon name="featherArrowRight" />
+      </button>
+    </div>
+    <div
+      class="flex flex-col gap-y-6 w-full max-w-[660px] lg:max-w-[550px] xl:max-w-[660px]"
+    >
+      <p class="text-xs sm:text-sm font-semibold uppercase text-sub-500">
+        Dental Practice
+      </p>
+      <h1
+        class="text-4xl sm:text-6xl lg:text-5xl xl:text-6xl text-main-600 font-semibold"
+      >
+        <span> We Make your smile</span>
+        <span> shine like the sun</span>
+      </h1>
+      <p class="text-lg sm:text-xl lg:text-lg xl:text-xl text-gray-500 mb-4">
+        Admodum detraxit quaestio ex eum, minim sonet mei qoud, idque nemore
+        reform ad principes quo
+      </p>
+      <a href="#" routerLink="appointment">
+        <button class="btn btn-primary btn-lg w-[250px] uppercase text-sm">
+          book an appointment
+        </button>
+      </a>
+    </div>
+    <div class="lg:flex hidden items-center gap-3 flex-grow justify-end">
+      <figure class="max-w-[450px] rounded-md">
+        <img src="assets/h3-img-1-1.jpg" alt="" />
+      </figure>
+      <figure class="max-w-[450px] rounded-md">
+        <img src="assets//h3-img-2-1.jpg" alt="" />
+      </figure>
+    </div>
+  </section>
+</section>

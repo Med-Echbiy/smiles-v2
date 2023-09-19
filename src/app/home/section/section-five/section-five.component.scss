@@ -1,0 +1,14 @@
+.collapse-title {
+  position: relative;
+  &::before {
+    content: "O1";
+    position: absolute;
+    top: 50%;
+    left: 10px;
+    transform: translateY(-50%);
+    font-size: 70px;
+    opacity: 0.5;
+    color: #dbeafe;
+    z-index: -1;
+  }
+}

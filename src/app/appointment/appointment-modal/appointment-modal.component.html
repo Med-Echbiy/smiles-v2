@@ -1,0 +1,80 @@
+<div
+  class="z-10000 gap-3 w-full p-12 max-w-4xl bg-white rounded-xl flex items-center"
+>
+  <div class="flex-grow">
+    <h6
+      class="text-2xl flex items-center gap-x-3 underline text-main-500 capitilaize"
+    >
+      <img
+        class="w-10 bg-blue-100 p-2 aspect-sqaure rounded-full"
+        src="assets/profile.png"
+        alt="profile pic"
+      />
+      <span>
+        {{ userInfo.fullName }}
+      </span>
+    </h6>
+    <div class="my-6 flex flex-col gap-4">
+      <p class="flex items-center gap-2 capitalize">
+        <span class="text-main-500">adress</span>
+        <span> : </span>
+        <span>
+          {{ userInfo.adress }}
+        </span>
+      </p>
+      <p class="flex items-center gap-2 capitalize">
+        <span class="text-main-500">phone</span>
+        <span> : </span>
+        <span>
+          {{ +userInfo.phone[0] === 2 ? "+" : "" }}{{ userInfo.phone }}
+        </span>
+      </p>
+      <p class="flex items-center gap-2 capitalize">
+        <span class="text-main-500">age</span>
+        <span> : </span>
+        <span> {{ userInfo.age }} years </span>
+      </p>
+      <div class="flex items-center gap-2 capitalize">
+        <span class="text-main-500">service</span>
+        <span> : </span>
+        <p class="flex items-center gap-3">
+          <img
+            class="w-8 aspect-square rounded"
+            [src]="userInfo.service.image"
+            [alt]="userInfo.service.name"
+          />
+          <span>
+            {{ userInfo.service.name }}
+          </span>
+        </p>
+      </div>
+    </div>
+    <div class="flex items-center gap-3 mt-2">
+      <button
+        [ngClass]="chossenTime === '' ? 'btn-disabled' : ''"
+        class="btn btn-success btn-outline"
+      >
+        Confirm
+      </button>
+      <button (click)="toggleOpen()" class="btn btn-error btn-outline">
+        cancel
+      </button>
+    </div>
+  </div>
+  <div class="w-[47%]">
+    <p class="text-gray-500 text-center capitalize">
+      please choose a time that suit you
+    </p>
+    <div class="flex items-center gap-x-3 justify-center mt-2">
+      <ng-container *ngFor="let time of CurrentTimes">
+        <button
+          [ngClass]="chossenTime === time ? 'btn-primary' : ''"
+          (click)="chooseTime(time)"
+          class="btn"
+        >
+          {{ time }}
+        </button>
+      </ng-container>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,124 @@
+<section class="px-2 sm:px-5 lg:px-10">
+  <div class="max-w-7xl mx-auto mb-32">
+    <h1 class="text-center text-5xl text-main-500 my-20 font-semibold">
+      Register
+    </h1>
+    <form class="max-w-2xl mx-auto rounded-md" [formGroup]="registerForm">
+      <div class="grid grid-cols-2 gap-3">
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <ng-icon name="featherUser" />
+          </span>
+          <input
+            [ngClass]="
+              !registerForm.pristine &&
+              !registerForm.controls.username.status &&
+              registerForm.controls.username.status === 'INVALID'
+                ? 'border-red-600 border-solid border-2'
+                : ''
+            "
+            formControlName="username"
+            pInputText
+            placeholder="Username"
+          />
+        </div>
+        <div class="p-inputgroup">
+          <span class="p-inputgroup-addon">
+            <ng-icon name="simpleMaildotru" />
+          </span>
+          <input
+            [ngClass]="
+              !registerForm.pristine &&
+              !registerForm.controls.email.status &&
+              registerForm.controls.email.status === 'INVALID'
+                ? 'border-red-600 border-solid border-2'
+                : ''
+            "
+            required
+            formControlName="email"
+            pInputText
+            placeholder="Email"
+            type="email"
+          />
+        </div>
+        <div>
+          <div class="p-inputgroup">
+            <input
+              [ngClass]="
+                !registerForm.controls.password.status &&
+                registerForm.errors &&
+                registerForm.errors['invalidMatch']
+                  ? 'border-red-600 border-solid border-2'
+                  : ''
+              "
+              required
+              minlength="6"
+              [type]="typePass"
+              formControlName="password"
+              pInputText
+              placeholder="password"
+            />
+
+            <span class="p-inputgroup-addon" (click)="changeType()">
+              <ng-icon name="featherEye" *ngIf="typePass === 'password'" />
+              <ng-icon name="featherEyeOff" *ngIf="typePass !== 'password'" />
+            </span>
+          </div>
+          <small id="username-help" class="text-red-700">
+            {{
+              registerForm.controls.password.errors &&
+              registerForm.controls.password.errors["minlength"]
+                ? "at least 6 character long"
+                : ""
+            }}
+          </small>
+        </div>
+        <div>
+          <div class="p-inputgroup">
+            <input
+              [ngClass]="
+                registerForm.errors && registerForm.errors['invalidMatch']
+                  ? 'border-red-600 border-solid border-2'
+                  : ''
+              "
+              required
+              [type]="typePassTwo"
+              formControlName="confirmPassword"
+              pInputText
+              placeholder="Confirm password"
+            />
+            <span (click)="changeTypeTwo()" class="p-inputgroup-addon">
+              <ng-icon name="featherEye" *ngIf="typePassTwo === 'password'" />
+              <ng-icon
+                name="featherEyeOff"
+                *ngIf="typePassTwo !== 'password'"
+              />
+            </span>
+          </div>
+          <small id="username-help" class="text-red-700">
+            {{
+              registerForm.errors && registerForm.errors["invalidMatch"]
+                ? "password does not match"
+                : ""
+            }}
+          </small>
+        </div>
+      </div>
+      <button
+        [disabled]="registerForm.status === 'INVALID'"
+        (click)="submit()"
+        class="capitalize disabled:btn-disabled btn btn-primary w-full mt-3"
+      >
+        register
+      </button>
+      <p class="text-xs text-gray-500 capitalize mt-2">
+        if you do not have an account
+        <span
+          routerLink="/signIn"
+          class="text-sub-500 font-semibold underline cursor-pointer"
+          >sign-In</span
+        >
+      </p>
+    </form>
+  </div>
+</section>

@@ -1,0 +1,73 @@
+<section class="sectionTwo mt-32 max-w-7xl mx-auto px-2 sm:px-5 lg:px-10">
+  <div class="">
+    <p-carousel
+      [value]="value"
+      [numVisible]="1"
+      [numScroll]="1"
+      indicatorStyleClass="indicators"
+      [autoplayInterval]="5500"
+      [showIndicators]="false"
+    >
+      <ng-template let-product pTemplate="item">
+        <section class="p-6">
+          <div class="container max-w-xl mx-auto">
+            <div
+              class="flex flex-col items-center w-full md:p-6 space-y-8 rounded-md lg:h-full lg:p-8"
+            >
+              <p class="text-sub-500 uppercase underline underline-offset-4">
+                Testimonials
+              </p>
+              <div class="">
+                <img
+                  [src]="product.picture"
+                  alt=""
+                  class="w-20 h-20 rounded-full dark:bg-gray-500 drop-shadow-lg"
+                />
+              </div>
+              <blockquote
+                class="max-w-lg text-lg italic font-medium text-center"
+              >
+                <p
+                  class="relative px-2 md:px-6 py-1 text-sm sm:text-base md:text-xl italic text-center "
+                >
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    fill="currentColor"
+                    class="w-12 h-12 text-sub-500 mb-2"
+                  >
+                    <path
+                      d="M232,246.857V16H16V416H54.4ZM48,48H200V233.143L48,377.905Z"
+                    ></path>
+                    <path
+                      d="M280,416h38.4L496,246.857V16H280ZM312,48H464V233.143L312,377.905Z"
+                    ></path>
+                  </svg>
+                  {{ product.review }}
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 512 512"
+                    fill="currentColor"
+                    class="absolute right-0 w-8 h-8 text-sub-500"
+                  >
+                    <path
+                      d="M280,185.143V416H496V16H457.6ZM464,384H312V198.857L464,54.1Z"
+                    ></path>
+                    <path
+                      d="M232,16H193.6L16,185.143V416H232ZM200,384H48V198.857L200,54.1Z"
+                    ></path>
+                  </svg>
+                </p>
+              </blockquote>
+              <div
+                class="text-center text-xl text-sub-500 capitalize font-semibold mt-4"
+              >
+                <p>{{ product.userName }}</p>
+              </div>
+            </div>
+          </div>
+        </section>
+      </ng-template>
+    </p-carousel>
+  </div>
+</section>

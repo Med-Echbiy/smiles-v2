@@ -1,0 +1,53 @@
+/* You can add global styles to this file, and also import other style files */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@import "primeng/resources/themes/lara-light-blue/theme.css";
+@import "primeng/resources/primeng.css";
+@import url("assets/theme.css");
+//
+* {
+  scroll-behavior: smooth;
+}
+.dropdownFull {
+  flex-grow: 1;
+  height: 100%;
+  display: flex;
+  align-items: center;
+}
+// appointmentFormComponent
+//
+.indicators {
+  border-radius: 100% !important;
+  aspect-ratio: 1/1;
+  height: auto !important;
+  width: 12px !important;
+}
+button.p-carousel-next {
+  border: 2px rgb(4, 4, 191) solid !important;
+  border-radius: 4px !important;
+  width: 32px !important;
+}
+button.p-carousel-prev {
+  border: 2px rgb(4, 4, 191) solid !important;
+  border-radius: 4px !important;
+  width: 32px !important;
+}
+img-comparison-slider {
+  --divider-width: 8px;
+  --divider-color: #ffffff;
+  --default-handle-opacity: 1;
+
+  --default-handle-color: #000000;
+  // background-color: #fff;
+}
+#shadow-root .handle-container .handle {
+  background-color: white;
+  width: 90px;
+  aspect-ratio: 1/1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 100%;
+}

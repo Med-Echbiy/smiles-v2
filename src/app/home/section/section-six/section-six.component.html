@@ -1,0 +1,74 @@
+<section class="sectionSix px-2 sm:px-5 lg:px-10 mt-32 mb-2">
+  <div
+    class="max-w-7xl mx-auto lg:justify-between flex gap-x-5 flex-col gap-y-4 lg:flex-row-reverse"
+  >
+    <div
+      class="w-full lg:max-w-lg p-6 rounded-lg rounded-tl-[80px] bg-blue-100"
+    >
+      <!-- this will come from an api endpoint -->
+      <div class="max-w-lg mx-auto">
+        <h5 class="text-center text-3xl text-main-500 font-semibold">
+          Schedule
+        </h5>
+        <div class="flex flex-col gap-y-3 mt-6">
+          <ng-container *ngFor="let day of schedule">
+            <div
+              class="p-4 flex justify-between rounded-md drop-shadow-sm bg-white text-sm sm:text-base lg:text-lg"
+            >
+              <p>{{ day.day }}</p>
+              <p class="flex items-center gap-1">
+                <span> {{ day.openAt }} </span>
+                <span> - </span>
+                <span> {{ day.closeIn }} </span>
+              </p>
+            </div>
+          </ng-container>
+
+          <button routerLink="appointment" class="btn btn-primary">
+            Book an appointment
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="flex flex-col gap-y-3 flex-grow max-w-lg">
+      <div class="logo text-main-500 font-semibold text-5xl">
+        <span>SMI</span>
+        <span class="text-sub-500">LES</span>
+      </div>
+      <!-- end Logo -->
+      <p class="text-gray-500 text-lg mb-4">
+        We are experienced and certified healthcare workers
+      </p>
+      <p class="flex items-center gap-2 text-lg p-4 rounded drop-shadow-md">
+        <ng-icon class="text-sub-500" name="featherMapPin"></ng-icon>
+        <span>200 Asarag, Taroudant</span>
+      </p>
+      <p class="flex items-center gap-2 text-lg p-4 rounded drop-shadow-md">
+        <ng-icon class="text-sub-500" name="featherPhoneCall"></ng-icon>
+        <span>+212501040506 / +212502030781</span>
+      </p>
+      <p class="flex items-center gap-2 text-lg p-4 rounded drop-shadow-md">
+        <ng-icon class="text-sub-500" name="simpleMaildotru"></ng-icon>
+        <span>smiles@gmail.com</span>
+      </p>
+      <!-- end description & info -->
+      <div class="border-4 border-dotted border-gray-400 my-4"></div>
+      <!-- divider -->
+      <div class="flex flex-col gap-y-4">
+        <h6 class="text-2xl font-semibold text-main-500 mb-2">Page</h6>
+        <p class="ml-1">
+          <a href="#" routerLink="/"> Home </a>
+        </p>
+        <p class="ml-1">
+          <a href="#" routerLink="about"> About Us </a>
+        </p>
+        <p class="ml-1">
+          <a href="#" routerLink="contact"> Contact Us </a>
+        </p>
+        <p class="ml-1">
+          <a href="#" routerLink="services"> Services </a>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
