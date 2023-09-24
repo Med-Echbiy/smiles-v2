@@ -1,3 +1,4 @@
+import { HttpClient } from '@angular/common/http';
 import {
   Component,
   EventEmitter,
@@ -6,6 +7,7 @@ import {
   Output,
   SimpleChanges,
 } from '@angular/core';
+import { lastValueFrom } from 'rxjs';
 //
 @Component({
   selector: 'app-appointment-modal',
@@ -13,8 +15,9 @@ import {
   styleUrls: ['./appointment-modal.component.scss'],
 })
 export class AppointmentModalComponent implements OnChanges {
-  constructor() {}
-  CurrentTimes = ['16:00', '14:30', '12:00']; // this will be return from backend avaiable time the day he choose
+  constructor(private http: HttpClient) {}
+  user = window.localStorage.getItem('user');
+  token = this.user && JSON.parse(this.user);
   @Input() isOpen = false;
   @Input() userInfo = {
     fullName: '',
@@ -25,21 +28,43 @@ export class AppointmentModalComponent implements OnChanges {
       name: '',
     },
     phone: '',
-    date: {
-      day: '',
-      month: '',
-      time: '',
-    },
   };
   @Output() toggleIsOpenToFalse = new EventEmitter();
   toggleOpen() {
     this.toggleIsOpenToFalse.emit();
   }
-  chooseTime(time: string) {
-    this.chossenTime = time;
-  }
-  chossenTime: string = '';
+
   ngOnChanges(change: SimpleChanges) {
     console.log(change['isOpen'].currentValue, 'changes');
+  }
+  async createAppointment() {
+    const dataObj = {
+      data: {
+        fullName: this.userInfo.fullName,
+        service: 1,
+        users_permissions_user: this.token.user.id,
+        email: this.token.user.email,
+        phone: this.userInfo.phone,
+        age: this.userInfo.age,
+        adress: this.userInfo.adress,
+      },
+    };
+
+    try {
+      const data = this.http.post(
+        'http://localhost:1337/api/appointments',
+        dataObj,
+        {
+          headers: {
+            Authorization: `Bearer ${this.token.jwt}`,
+            'Content-Type': 'application/json',
+          },
+        }
+      );
+      const response = await lastValueFrom(data);
+      console.log(response);
+    } catch (err) {
+      console.log(err);
+    }
   }
 }

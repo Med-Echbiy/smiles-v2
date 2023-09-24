@@ -50,31 +50,12 @@
       </div>
     </div>
     <div class="flex items-center gap-3 mt-2">
-      <button
-        [ngClass]="chossenTime === '' ? 'btn-disabled' : ''"
-        class="btn btn-success btn-outline"
-      >
+      <button (click)="createAppointment()" class="btn btn-success btn-outline">
         Confirm
       </button>
       <button (click)="toggleOpen()" class="btn btn-error btn-outline">
         cancel
       </button>
-    </div>
-  </div>
-  <div class="w-[47%]">
-    <p class="text-gray-500 text-center capitalize">
-      please choose a time that suit you
-    </p>
-    <div class="flex items-center gap-x-3 justify-center mt-2">
-      <ng-container *ngFor="let time of CurrentTimes">
-        <button
-          [ngClass]="chossenTime === time ? 'btn-primary' : ''"
-          (click)="chooseTime(time)"
-          class="btn"
-        >
-          {{ time }}
-        </button>
-      </ng-container>
     </div>
   </div>
 </div>

@@ -54,11 +54,8 @@
             tabindex="0"
             class="btn btn-ghost btn-circle hover:bg-main-200 avatar"
           >
-            <div
-              class="w-10 p-2 bg-main-100 rounded-full"
-              (click)="toggleDropDown()"
-            >
-              <img src="assets/profile.png" alt="profile avatar" />
+            <div class="w-10 rounded-full" (click)="toggleDropDown()">
+              <img [src]="profilePics[user.pic]" alt="profile avatar" />
             </div>
           </label>
           <ul

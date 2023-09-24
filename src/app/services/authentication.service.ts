@@ -13,12 +13,15 @@ export class AuthenticationService {
   isInStorage = window.localStorage.getItem('user') ? true : false;
   stateSubject = new BehaviorSubject<{
     userLogged: boolean;
-    object: { jwt: string; user: { username: string; email: string } };
+    object: {
+      jwt: string;
+      user: { username: string; email: string; pic: number };
+    };
   }>({
     userLogged: this.isInStorage,
     object: this.isInStorage
       ? JSON.parse(window.localStorage.getItem('user') as string)
-      : { user: { username: '', email: '' }, jwt: '' },
+      : { user: { username: '', email: '', pic: 0 }, jwt: '' },
   });
   state$ = this.stateSubject.asObservable();
   setState(newState: any) {
@@ -26,7 +29,6 @@ export class AuthenticationService {
   }
 
   async signIn({ email, password }: { email: string; password: string }) {
-    console.log('1_we run');
     let valid = false;
     try {
       const data$ = this.http.post('http://localhost:1337/api/auth/local', {
@@ -37,12 +39,10 @@ export class AuthenticationService {
       window.localStorage.setItem('user', JSON.stringify(data));
       this.setState({ userLogged: true, object: data });
       valid = true;
-      console.log(data, '2_run_data completed');
     } catch (error) {
       console.log(error);
-      console.log('err', '2_run_data completed');
     }
-    console.log('3_we are returning');
+
     return valid;
   }
   getUser() {
@@ -61,7 +61,7 @@ export class AuthenticationService {
     password: string;
   }) {
     this.http
-      .post('http://localhost:1337/api/auth/local/register', {
+      .post('http://localhost:1337/api/auth/local/register?populate=*', {
         username,
         password,
         email,

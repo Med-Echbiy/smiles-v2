@@ -1,6 +1,5 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { catchError } from 'rxjs';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
 @Component({
@@ -9,8 +8,16 @@ import { AuthenticationService } from 'src/app/services/authentication.service';
   styleUrls: ['./nav.component.scss'],
 })
 export class NavComponent implements OnInit {
+  profilePics = [
+    'assets/profile/0.jpeg',
+    'assets/profile/1.jpeg',
+    'assets/profile/2.jpeg',
+    'assets/profile/3.jpeg',
+    'assets/profile/4.jpeg',
+    'assets/profile/5.jpeg',
+  ];
   isUserIn = false;
-  user = { email: '', username: '' };
+  user = { email: '', username: '', pic: 0 };
   constructor(private auth: AuthenticationService, private http: HttpClient) {
     this.auth.getUser().subscribe((value) => (this.user = value.object.user));
     this.auth

@@ -38,7 +38,7 @@ const routes: Routes = [
   {
     path: 'appointment',
     component: AppointmentFormComponent,
-    // canActivate: [notAuthenticationGuard],
+    canActivate: [notAuthenticationGuard],
   },
   {
     path: 'redirect',
@@ -58,9 +58,8 @@ const routes: Routes = [
   {
     path: 'profile',
     loadChildren: () =>
-      import('./profile/profile-routing.module').then(
-        (m) => m.ProfileRoutingModule
-      ),
+      import('./profile/profile.module').then((m) => m.ProfileModule),
+    canActivate: [notAuthenticationGuard],
   },
 ];
 

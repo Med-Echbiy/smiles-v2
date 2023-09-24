@@ -28,11 +28,6 @@ export class AppointmentFormComponent implements OnInit {
       name: '',
     },
     phone: '',
-    date: {
-      day: '',
-      month: '',
-      time: '',
-    },
   };
   isOpen = false;
   constructor(private Fb: FormBuilder) {}
@@ -42,12 +37,10 @@ export class AppointmentFormComponent implements OnInit {
     lastName: ['', [Validator.nameValidator, Validator.spaceValidator]],
     adress: ['', [Validator.nameValidator]],
     age: ['', []],
-    day: ['', [Validator.dateTimeValidator]],
     services: [{ name: '', image: '' }, Validator.servicesValidator],
     phoneNumber: ['', [Validator.phoneNumberValidator]],
   });
   submit() {
-    console.log(this.appointment.value);
     const days = [
       'monday',
       'tuesday',
@@ -73,25 +66,19 @@ export class AppointmentFormComponent implements OnInit {
     ];
     //
 
-    const date = new Date(this.appointment.value.day as string);
-    // console.log(new Date('1/1/2001').getUTCMonth());
-    const dateObj = {
-      day: days[date.getDay() - 1],
-      month: months[date.getMonth()],
-      time: `${date.getHours()}:${+date.getMinutes() > 29 ? '30' : '00'}`,
-    };
     // send the date to backend to see if the time is available if not the backend the return if the valid : true else it returns three time segment and provide them to user in the same day he choose and tommorow in the same time if availbale if not it looks for after tomowrow and goes on
     this.userInfo = {
       fullName: `${this.appointment.value.firstName} ${this.appointment.value.lastName}`,
       age: this.appointment.value.age?.toString() as string,
       adress: this.appointment.value.adress as string,
-      date: dateObj,
+
       service: this.appointment.value.services as {
         name: string;
         image: string;
       },
       phone: this.appointment.value.phoneNumber as string,
     };
+    console.log(this.userInfo);
     this.isOpen = true;
   }
   toggleIsOpen() {
@@ -114,7 +101,7 @@ export class AppointmentFormComponent implements OnInit {
       lastName: this.appointment.controls.lastName.errors,
       adress: this.appointment.controls.adress.errors,
       age: this.appointment.controls.age.errors,
-      day: this.appointment.controls.day.errors,
+
       services: this.appointment.controls.services.errors,
       phoneNumber: this.appointment.controls.phoneNumber.errors,
     };
@@ -124,7 +111,6 @@ export class AppointmentFormComponent implements OnInit {
     lastName: this.appointment.controls.lastName.errors,
     adress: this.appointment.controls.adress.errors,
     age: this.appointment.controls.age.errors,
-    day: this.appointment.controls.day.errors,
     services: this.appointment.controls.services.errors,
     phoneNumber: this.appointment.controls.phoneNumber.errors,
   };

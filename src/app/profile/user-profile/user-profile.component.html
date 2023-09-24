@@ -1,6 +1,58 @@
-<section class="px-2 sm:px-5 lg:px-10">
-  <div class="max-w-7xl mx-auto">
-    display user Info with a links to navigate with also ability to change photo
-    and user info
+<section class="px-2 sm:px-5 lg:px-10 relative">
+  <!-- modal -->
+  <div
+    [ngClass]="modal ? 'opacity-100 z-[999999999]' : 'opacity-0 -z-10'"
+    class="fixed top-0 left-0 w-full h-screen transition-all flex items-center justify-center ease-linear duration-500"
+  >
+    <div
+      (click)="openModal()"
+      class="absolute top-0 left-0 w-full h-full bg-gray-950 opacity-20 -z-10"
+    ></div>
+    <div
+      [ngClass]="modal ? 'top-1/2 left-1/2' : '-top-full left-1/2'"
+      class="max-w-xl p-2 sm:p-4 lg:p-6 xl:p-8 bg-white rounded-xl transition-all duration-500 delay-500 absolute -translate-x-1/2 -translate-y-1/2"
+    >
+      <p class="text-xl text-center my-4 underline uppercase">
+        choose an avatar
+      </p>
+      <div class="grid items-center grid-cols-2 md:grid-cols-3 gap-3">
+        <ng-container *ngFor="let img of profilePics; let i = index">
+          <img
+            (click)="updatePic(i)"
+            class="max-w-[90px] mix-blend-multiply cursor-pointer"
+            [src]="img"
+            alt=""
+          />
+        </ng-container>
+      </div>
+    </div>
+  </div>
+  <!-- end modal -->
+  <div class="max-w-7xl mx-auto z-30">
+    <div class="top-row grid grid-cols-2 gap-4">
+      <div
+        class="border rounded-lg p-2 md:p-4 lg:p-6 xl:p-8 border-solid h-fit"
+      >
+        <div class="profile flex gap-4">
+          <div class="image">
+            <img
+              class="max-w-[120px] block"
+              [src]="profilePics[choosenPic]"
+              alt=""
+            />
+          </div>
+          <div>
+            <h1 class="text-xl font-bold mt-4">{{ data.username }}</h1>
+            <p class="text-sm">{{ data.email }}</p>
+          </div>
+        </div>
+        <button (click)="openModal()" class="btn btn-xs text-xs">
+          change picture
+        </button>
+      </div>
+      <div
+        class="border border-solid p-2 md:p-4 lg:p-6 xl:p-8 h-fit rounded-lg"
+      ></div>
+    </div>
   </div>
 </section>

@@ -165,52 +165,7 @@
           }}
         </small>
       </div>
-      <div class="flex flex-col gap-y-2 capitalize">
-        <label for="day">Choose a Day </label>
-        <!-- <p-dropdown
-          [ngStyle]="
-            !appointment.controls.day.pristine
-              ? appointment.controls.day.status === 'INVALID'
-                ? {
-                    border: '2px solid #F72C08',
-                    'border-radius': '8px'
-                  }
-                : { border: '2px solid #16A34A', 'border-radius': '8px' }
-              : {}
-          "
-          class="w-full h-[54px] flex items-center"
-          formControlName="day"
-          styleClass="dropdownFull"
-          [options]="days"
-          optionLabel="name"
-          placeholder="Choose a Day"
-        /> -->
-        <p-calendar
-          class="w-full h-[54px] flex items-center"
-          view="date"
-          [firstDayOfWeek]="1"
-          styleClass="dropdownFull"
-          inputStyleClass="dropdownFull capitalize"
-          [showTime]="false"
-          [required]="true"
-          formControlName="day"
-          placeholder="choose date"
-        ></p-calendar>
-        <!-- you can find the styleClass at the root style.scss -->
-        <small class="text-red-700 text-sm lowercase">
-          {{
-            !appointment.controls.day.pristine
-              ? errors.day
-                ? errors.day["dayInvalid"]
-                  ? "please choose time between 9-17"
-                  : errors.day["breakDay"]
-                  ? "it is a break day"
-                  : "please choose date"
-                : ""
-              : ""
-          }}
-        </small>
-      </div>
+
       <!--  -->
       <div class="flex flex-col gap-y-2 capitalize">
         <label for="services">Choose a service</label>
