@@ -1,48 +1,182 @@
-<section class="px-2 sm:px-5 lg:px-10">
+<section class="px-2 sm:px-5 lg:px-10 relative">
+  <!-- modal -->
+  <div
+    [ngClass]="modal ? 'opacity-100 z-[999999999]' : 'opacity-0 -z-10'"
+    class="fixed top-0 left-0 w-full h-screen transition-all flex items-center justify-center ease-linear duration-500"
+  >
+    <div
+      (click)="openModal()"
+      class="absolute top-0 left-0 w-full h-full bg-gray-950 opacity-20 -z-10"
+    ></div>
+    <div
+      [ngClass]="modal ? 'top-1/2 left-1/2' : '-top-full left-1/2'"
+      class="max-w-xl p-2 sm:p-4 lg:p-6 xl:p-8 bg-white rounded-xl transition-all duration-500 delay-500 absolute -translate-x-1/2 -translate-y-1/2"
+    >
+      <p class="text-xl text-center my-4 underline uppercase">
+        choose an avatar
+      </p>
+      <div class="grid items-center grid-cols-2 md:grid-cols-3 gap-3">
+        <ng-container *ngFor="let img of profilePics; let i = index">
+          <img
+            (click)="changePic(i)"
+            class="max-w-[90px] mix-blend-multiply cursor-pointer"
+            [src]="img.id"
+            alt=""
+          />
+        </ng-container>
+      </div>
+    </div>
+  </div>
+
+  <!-- end modal -->
   <div class="max-w-7xl mx-auto mb-32">
     <h1 class="text-center text-5xl text-main-500 my-20 font-semibold">
       Register
     </h1>
     <form class="max-w-2xl mx-auto rounded-md" [formGroup]="registerForm">
+      <div class="profle flex items-center justify-center mb-6">
+        <div class="w-32 aspect-square">
+          <img
+            (click)="openModal()"
+            class="cursor-pointer"
+            title="click to choose profile picture"
+            [src]="selectedPic.id"
+            alt="profile"
+          />
+        </div>
+      </div>
       <div class="grid grid-cols-2 gap-3">
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon">
-            <ng-icon name="featherUser" />
-          </span>
-          <input
-            [ngClass]="
-              !registerForm.pristine &&
-              !registerForm.controls.username.status &&
-              registerForm.controls.username.status === 'INVALID'
-                ? 'border-red-600 border-solid border-2'
-                : ''
+        <div class="fullName">
+          <div class="p-inputgroup h-[54px]">
+            <span class="p-inputgroup-addon">
+              <ng-icon name="featherUser" />
+            </span>
+            <input
+              required
+              [ngClass]="
+                !registerForm.pristine &&
+                !registerForm.controls.fullName.status &&
+                registerForm.controls.fullName.status === 'INVALID'
+                  ? 'border-red-600 border-solid border-2'
+                  : ''
+              "
+              formControlName="fullName"
+              pInputText
+              placeholder="Full Name"
+            />
+          </div>
+          <small
+            *ngIf="
+              registerForm.controls.fullName.dirty &&
+              registerForm.controls.fullName.errors
             "
-            formControlName="username"
-            pInputText
-            placeholder="Username"
+            class="text-red-700 ml-3"
+          >
+            {{
+              registerForm.controls.fullName.errors["nameIsShort"] ||
+              registerForm.controls.fullName.errors["lastNameIsRequired"] ||
+              registerForm.controls.fullName.errors["lastNameIsTooShort"]
+                ? "please insert your full name"
+                : registerForm.controls.fullName.errors[
+                    "numberAreNotAllowed"
+                  ] || registerForm.controls.fullName.errors["nameHasSymbol"]
+                ? "numbers & symbols - not allowed"
+                : ""
+            }}
+          </small>
+        </div>
+        <!-- fullName Input End -->
+        <div class="gender">
+          <p-dropdown
+            [ngStyle]="
+              !registerForm.controls.gender.pristine
+                ? registerForm.controls.gender.status === 'INVALID'
+                  ? {
+                      border: '2px solid #F72C08',
+                      'border-radius': '8px'
+                    }
+                  : { border: '2px solid #16A34A', 'border-radius': '8px' }
+                : {}
+            "
+            [options]="gender"
+            class="flex items-center w-full h-[54px]"
+            id="gender"
+            formControlName="gender"
+            styleClass="dropdownFull h-5"
+            optionLabel="name"
+            [showClear]="false"
+            placeholder="Select your gender"
           />
         </div>
-        <div class="p-inputgroup">
-          <span class="p-inputgroup-addon">
-            <ng-icon name="simpleMaildotru" />
-          </span>
-          <input
-            [ngClass]="
-              !registerForm.pristine &&
-              !registerForm.controls.email.status &&
-              registerForm.controls.email.status === 'INVALID'
-                ? 'border-red-600 border-solid border-2'
-                : ''
-            "
-            required
-            formControlName="email"
-            pInputText
-            placeholder="Email"
-            type="email"
-          />
-        </div>
+        <!-- gender input End -->
         <div>
-          <div class="p-inputgroup">
+          <div class="p-inputgroup h-[54px]">
+            <span class="p-inputgroup-addon">
+              <ng-icon name="featherUser" />
+            </span>
+            <input
+              [ngClass]="
+                !registerForm.pristine &&
+                !registerForm.controls.username.status &&
+                registerForm.controls.username.status === 'INVALID'
+                  ? 'border-red-600 border-solid border-2'
+                  : ''
+              "
+              formControlName="username"
+              pInputText
+              placeholder="Username"
+            />
+          </div>
+          <small
+            class="text-red-700 ml-3"
+            *ngIf="
+              registerForm.controls.username.dirty &&
+              registerForm.controls.username.errors
+            "
+          >
+            {{
+              registerForm.controls.username.errors["nameInvalid"]
+                ? "username must be 5 character or more"
+                : registerForm.controls.username.errors["space"]
+                ? "username should not contain spaces"
+                : ""
+            }}
+          </small>
+        </div>
+        <!-- userName Input End -->
+        <div>
+          <div class="p-inputgroup h-[54px]">
+            <span class="p-inputgroup-addon">
+              <ng-icon name="simpleMaildotru" />
+            </span>
+            <input
+              [ngClass]="
+                !registerForm.pristine &&
+                !registerForm.controls.email.status &&
+                registerForm.controls.email.status === 'INVALID'
+                  ? 'border-red-600 border-solid border-2'
+                  : ''
+              "
+              required
+              formControlName="email"
+              pInputText
+              placeholder="Email"
+              type="email"
+            />
+          </div>
+          <small
+            class="text-red-700 ml-3"
+            *ngIf="
+              registerForm.controls.email.errors &&
+              registerForm.controls.email.dirty
+            "
+          >
+            email is not valid
+          </small>
+        </div>
+        <!-- Email Input End -->
+        <div>
+          <div class="p-inputgroup h-[54px]">
             <input
               [ngClass]="
                 !registerForm.controls.password.status &&
@@ -64,7 +198,7 @@
               <ng-icon name="featherEyeOff" *ngIf="typePass !== 'password'" />
             </span>
           </div>
-          <small id="username-help" class="text-red-700">
+          <small id="pass-help" class="text-red-700 ml-3">
             {{
               registerForm.controls.password.errors &&
               registerForm.controls.password.errors["minlength"]
@@ -74,7 +208,7 @@
           </small>
         </div>
         <div>
-          <div class="p-inputgroup">
+          <div class="p-inputgroup h-[54px]">
             <input
               [ngClass]="
                 registerForm.errors && registerForm.errors['invalidMatch']
@@ -95,7 +229,7 @@
               />
             </span>
           </div>
-          <small id="username-help" class="text-red-700">
+          <small id="pass-help" class="text-red-700 ml-3">
             {{
               registerForm.errors && registerForm.errors["invalidMatch"]
                 ? "password does not match"
@@ -103,10 +237,15 @@
             }}
           </small>
         </div>
+        <!-- Password Inputs End -->
       </div>
+      <small class="text-red-700 ml-3" *ngIf="!!ifError">
+        {{ ifError }}
+      </small>
+      <!--   -->
       <button
-        [disabled]="registerForm.status === 'INVALID'"
         (click)="submit()"
+        [disabled]="registerForm.status === 'INVALID'"
         class="capitalize disabled:btn-disabled btn btn-primary w-full mt-3"
       >
         register

@@ -6,11 +6,35 @@ export class Validator {
   ): { [key: string]: boolean } | null {
     const name = control.value as string;
     // console.log(name);
-    if (name.trim().length < 3) {
-      return { nameInvalid: true };
+
+    if (name.trim().length < 4) {
+      return { nameIsShort: true };
+    } else if (!name.includes(' ')) {
+      return { lastNameIsRequired: true };
+    } else if (name.match(/[\d]/)) {
+      return { numberAreNotAllowed: true };
+    } else if (name.slice(name.indexOf(' ') + 1).length < 4) {
+      return { lastNameIsTooShort: true };
+    } else if (name.match(/[-’/`~!#*$@_%+=.,^&(){}[\]|;:”<>?\\]/g)) {
+      return { nameHasSymbol: true };
     }
     return null;
   }
+  //
+  static usernameValidator(
+    control: AbstractControl
+  ): { [key: string]: boolean } | null {
+    const name = control.value as string;
+    // console.log(name);
+
+    if (name.trim().length < 5) {
+      return { nameInvalid: true };
+    } else if (name.includes(' ')) {
+      return { space: true };
+    }
+    return null;
+  }
+  //
   static spaceValidator(
     control: AbstractControl
   ): { [key: string]: boolean } | null {
@@ -43,17 +67,17 @@ export class Validator {
   ): { [key: string]: boolean } | null {
     const services = [
       {
-        name: 'service-name',
-        image: 'assets/service_1.webp',
+        serviceName: 'service-name',
+        photo: 'assets/service_1.webp',
       },
     ];
     const service = control.value;
 
     let doesIncludes = false;
-    for (let serviceIn of services) {
+    for (const serviceIn of services) {
       if (
-        service.name === serviceIn.name &&
-        service.image === serviceIn.image
+        service.serviceName === serviceIn.serviceName &&
+        service.photo === serviceIn.photo
       ) {
         doesIncludes = true;
         break;
@@ -70,7 +94,7 @@ export class Validator {
     control: AbstractControl
   ): { [key: string]: boolean } | null {
     const date = new Date(control.value);
-    let day = date.getDay();
+    const day = date.getDay();
     console.log(`${date.toLocaleDateString()}/${date.getHours()}`);
     const days = [
       'monday',

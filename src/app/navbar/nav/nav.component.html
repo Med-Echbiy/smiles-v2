@@ -63,15 +63,16 @@
             [ngClass]="
               !dropdown ? 'invisible opacity-0' : 'visible opacity-100'
             "
-            class="mt-3 -left-[170px] z-[999] transition-all ease-out duration-300 p-2 shadow menu menu-sm -bottom-[120px] absolute bg-base-100 rounded-box w-52 flex flex-col gap-y-2"
+            class="mt-3 -left-[170px] z-[999] transition-all ease-out duration-300 p-2 shadow menu menu-sm -bottom-[80px] drop-shadow-2xl absolute bg-base-100 rounded-box w-52 flex flex-col gap-y-2"
           >
-            <li>
+            <li
+              (click)="toggleDropDown()"
+              routerLink="/profile"
+              class="cursor-pointer"
+            >
               <p class="justify-between">
                 {{ user.username }}
               </p>
-            </li>
-            <li>
-              <p>profile</p>
             </li>
             <li (click)="logout()" class="btn btn-sm btn-secondary">Logout</li>
           </ul>

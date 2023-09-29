@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { AuthenticationService } from 'src/app/services/authentication.service';
 
@@ -18,7 +17,7 @@ export class NavComponent implements OnInit {
   ];
   isUserIn = false;
   user = { email: '', username: '', pic: 0 };
-  constructor(private auth: AuthenticationService, private http: HttpClient) {
+  constructor(private auth: AuthenticationService) {
     this.auth.getUser().subscribe((value) => (this.user = value.object.user));
     this.auth
       .getUserLogged()

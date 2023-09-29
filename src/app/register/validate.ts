@@ -1,4 +1,5 @@
-import { AbstractControl, FormGroup } from '@angular/forms';
+/* eslint-disable no-useless-escape */
+import { AbstractControl } from '@angular/forms';
 
 export class Validate {
   constructor() {}

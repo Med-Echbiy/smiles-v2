@@ -46,6 +46,16 @@
     "adress": {
       "type": "string",
       "required": true
+    },
+    "approved": {
+      "type": "boolean",
+      "default": false
+    },
+    "date": {
+      "type": "date"
+    },
+    "time": {
+      "type": "time"
     }
   }
 }

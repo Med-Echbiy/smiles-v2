@@ -2,14 +2,36 @@ import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
 import { lastValueFrom } from 'rxjs';
 
-interface Data {
-  appointments: {}[];
+interface Appointments {
+  adress: string;
+  approved: boolean;
+  createdAt: string;
+  date: null | string;
+  email: string;
+  fullName: string;
+  id: number;
+  phone: string;
+  publishedAt: string;
+  time: null | string;
+  updatedAt: string;
+  service: {
+    serviceName: string;
+    id: number;
+    photo: {
+      id: number;
+      url: string;
+    };
+  };
+}
 
+interface Data {
+  appointments: Appointments[];
   email: string;
   id: number;
   pic: number;
-
+  gender: 'male' | 'female';
   username: string;
+  fullName: string;
 }
 
 @Component({
@@ -27,7 +49,9 @@ export class UserProfileComponent implements OnInit {
     'assets/profile/4.jpeg',
     'assets/profile/5.jpeg',
   ];
+  services = [];
   modal = false;
+  // appoitmentModal = false;
   token = this.user && JSON.parse(this.user);
   constructor(private http: HttpClient) {}
   data: Data = {
@@ -36,11 +60,37 @@ export class UserProfileComponent implements OnInit {
     id: 0,
     pic: 0,
     username: '',
+    gender: 'male',
+    fullName: '',
   };
   choosenPic: number = 0;
+  appointments: never[] | Appointments[] = [];
+  confirmedAppointments = false;
+  notConfirmedAppointmets = false;
+  // selectedAppointment: Appointments = {
+  //   adress: '',
+  //   approved: false,
+  //   createdAt: '',
+  //   date: null,
+  //   email: '',
+  //   fullName: '',
+  //   id: 0,
+  //   phone: '',
+  //   publishedAt: '',
+  //   time: null,
+  //   updatedAt: '',
+  //   service: {
+  //     serviceName: '',
+  //     id: 0,
+  //     photo: {
+  //       id: 0,
+  //       url: '',
+  //     },
+  //   },
+  // };
   async ngOnInit(): Promise<void> {
     const userData = this.http.get<Data>(
-      `http://localhost:1337/api/users/${this.token.user.id}?populate=appointments`,
+      `http://localhost:1337/api/users/${this.token.user.id}?populate[appointments][populate][service][fields][0]=serviceName&populate[appointments][populate][service][populate][photo][fields][0]=url`,
       {
         headers: {
           Authorization: `Bearer ${this.token.jwt}`,
@@ -50,8 +100,12 @@ export class UserProfileComponent implements OnInit {
     );
     const res: Data = await lastValueFrom(userData);
     this.data = res;
+    this.appointments = res.appointments as [];
     this.choosenPic = res.pic;
-    console.log(res);
+    this.confirmedAppointments =
+      this.appointments.filter((e) => e.approved).length > 0;
+    this.notConfirmedAppointmets =
+      this.appointments.filter((e) => !e.approved).length > 0;
   }
   async updatePic(picId: number) {
     const update = {

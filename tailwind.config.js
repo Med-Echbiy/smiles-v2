@@ -27,6 +27,9 @@ module.exports = {
           900: "#31150e",
         },
       },
+      screens: {
+        xs: "420px",
+      },
     },
   },
   daisyui: {

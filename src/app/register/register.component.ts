@@ -10,10 +10,33 @@ import { AuthenticationService } from '../services/authentication.service';
   styleUrls: ['./register.component.scss'],
 })
 export class RegisterComponent {
+  ifError = '';
+  gender = [{ name: 'male' }, { name: 'female' }];
+  profilePics = [
+    { name: 0, id: 'assets/profile/0.jpeg' },
+    { id: 'assets/profile/1.jpeg', name: 1 },
+    { name: 2, id: 'assets/profile/2.jpeg' },
+    { name: 3, id: 'assets/profile/3.jpeg' },
+    { name: 4, id: 'assets/profile/4.jpeg' },
+    { name: 5, id: 'assets/profile/5.jpeg' },
+  ];
+  selectedPic = this.profilePics[0];
+  modal = false;
   constructor(private Fb: FormBuilder, private auth: AuthenticationService) {}
+  changePic(i: number) {
+    this.selectedPic = this.profilePics[i];
+    this.registerForm.controls.pic.setValue(this.profilePics[i]);
+    this.openModal();
+  }
+  openModal() {
+    this.modal = !this.modal;
+  }
   registerForm = this.Fb.group(
     {
-      username: ['', [Validator.spaceValidator, Validator.nameValidator]],
+      pic: [this.selectedPic],
+      fullName: ['', [Validator.nameValidator]],
+      gender: [{ name: 'male' }],
+      username: ['', [Validator.usernameValidator]],
       email: ['', [Validate.emailValidator]],
       password: [''],
       confirmPassword: ['', []],
@@ -30,14 +53,28 @@ export class RegisterComponent {
   changeTypeTwo() {
     this.typePassTwo = this.typePassTwo !== 'password' ? 'password' : 'text';
   }
-  submit() {
-    console.log(this.registerForm);
-    const data = this.registerForm.value as {
+  async submit() {
+    console.log(this.selectedPic, this.registerForm.controls);
+    const data = {
+      ...this.registerForm.value,
+      gender: this.registerForm.controls.gender.value?.name,
+      pic: this.registerForm.controls.pic.value?.name,
+    } as {
       username: string;
       email: string;
       password: string;
+      pic: number;
+      fullName: string;
+      gender: 'male' | 'female';
     };
-    this.auth.register(data);
-    this.registerForm.reset();
+    const res: { error: { error: { message: string } } } | 200 =
+      await this.auth.register(data);
+    console.log(res);
+    if (res === 200) {
+      this.registerForm.reset();
+    } else {
+      this.ifError = res.error.error.message as string;
+      this.registerForm.controls.email.reset();
+    }
   }
 }

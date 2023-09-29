@@ -1,3 +1,11 @@
+<!-- 
+
+
+
+   
+
+ -->
+
 <section class="px-2 sm:px-5 lg:px-10 relative">
   <!-- modal -->
   <div
@@ -15,7 +23,7 @@
       <p class="text-xl text-center my-4 underline uppercase">
         choose an avatar
       </p>
-      <div class="grid items-center grid-cols-2 md:grid-cols-3 gap-3">
+      <div class="grid items-center grid-cols-2 sm:grid-cols-3 gap-3">
         <ng-container *ngFor="let img of profilePics; let i = index">
           <img
             (click)="updatePic(i)"
@@ -29,30 +37,232 @@
   </div>
   <!-- end modal -->
   <div class="max-w-7xl mx-auto z-30">
-    <div class="top-row grid grid-cols-2 gap-4">
-      <div
-        class="border rounded-lg p-2 md:p-4 lg:p-6 xl:p-8 border-solid h-fit"
-      >
-        <div class="profile flex gap-4">
-          <div class="image">
-            <img
-              class="max-w-[120px] block"
-              [src]="profilePics[choosenPic]"
-              alt=""
-            />
-          </div>
-          <div>
-            <h1 class="text-xl font-bold mt-4">{{ data.username }}</h1>
-            <p class="text-sm">{{ data.email }}</p>
-          </div>
+    <div class="rounded-lg p-2 md:p-4 lg:p-6 xl:p-8 border-solid">
+      <div class="profile flex flex-col items-center gap-4">
+        <div class="image">
+          <img
+            class="max-w-[120px] block"
+            [src]="profilePics[choosenPic]"
+            alt=""
+          />
         </div>
         <button (click)="openModal()" class="btn btn-xs text-xs">
           change picture
         </button>
+        <div>
+          <h1 class="text-xl font-bold mt-4">{{ data.username }}</h1>
+          <div class="text-xs ml-2 text-gray-700">
+            <p class="">{{ data.email }}</p>
+            <p>{{ data.fullName }}</p>
+          </div>
+        </div>
       </div>
+    </div>
+    <div
+      class="top-row grid grid-cols-1 lg:grid-cols-2 gap-4 items-stretch"
+    ></div>
+    <div class="grid grid-cols-1 gap-3 lg:grid-cols-2 mt-4">
       <div
-        class="border border-solid p-2 md:p-4 lg:p-6 xl:p-8 h-fit rounded-lg"
-      ></div>
+        class="border border-solid p-2 md:p-4 lg:p-6 xl:p-8 flex flex-col rounded-lg h-fit"
+      >
+        <p
+          class="uppercase my-3 flex items-center gap-3 text-sm xs:text-base sm:text-lg xl:text-xl"
+        >
+          <span> appointments Not yet Confirmed </span>
+          <ng-icon name="featherUserX"></ng-icon>
+        </p>
+        <div class="flex flex-col justify-end flex-grow">
+          <ng-container *ngIf="appointments.length > 0">
+            <p-accordion class="w-full">
+              <ng-container
+                *ngFor="let apppointemt of appointments; let i = index"
+              >
+                <p-accordionTab *ngIf="!apppointemt.approved">
+                  <ng-template pTemplate="header">
+                    <div class="flex items-center gap-3">
+                      <div>
+                        <img
+                          class="max-w-[74px] rounded"
+                          [src]="
+                            'http://localhost:1337' +
+                            apppointemt.service.photo.url
+                          "
+                          alt=""
+                        />
+                      </div>
+                      <p
+                        class="flex flex-col xs:flex-row xs:items-center gap-3 flex-wrap"
+                      >
+                        <span class="text-sm text-gray-700">{{
+                          apppointemt.service.serviceName
+                        }}</span>
+                        <span
+                          class="xs:justify-end flex items-center gap-2 flex-grow flex-shrink"
+                        >
+                          <span class="text-xs">
+                            {{ apppointemt.createdAt | date }}
+                          </span>
+                          <span class="text-xs">
+                            {{ apppointemt.createdAt | date : "shortTime" }}
+                          </span>
+                        </span>
+                      </p>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="content">
+                    <div class="">
+                      <p class="divider divider-vertical mt-0"></p>
+                      <div
+                        class="grid grid-cols-3 gap-2 text-[10px] xs:text-xs md:text-sm lg:text-xs xl:text-sm"
+                      >
+                        <p class="flex items-center gap-3">
+                          <span> Approved : </span>
+                          <span class="flex items-center gap-2">
+                            <span>No</span>
+                            <ng-icon
+                              class="text-red-700"
+                              name="featherX"
+                            ></ng-icon>
+                          </span>
+                        </p>
+
+                        <p class="flex items-center gap-3">
+                          <ng-icon name="featherUser"></ng-icon>
+                          <span> {{ apppointemt.fullName }} </span>
+                        </p>
+
+                        <p class="flex items-center gap-3">
+                          <ng-icon name="simpleGmail"></ng-icon>
+                          <span> {{ apppointemt.email }} </span>
+                        </p>
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-accordionTab>
+              </ng-container>
+            </p-accordion>
+          </ng-container>
+          <ng-container *ngIf="!notConfirmedAppointmets">
+            <div class="my-4 uppercase">
+              <p class="text-gray-700 text-sm">
+                Theres Not Appointments waiting To be Confirmed !!
+              </p>
+              <button
+                routerLink="/appointment"
+                class="btn btn-primary flex items-center gap-3 mt-4"
+              >
+                <span> Make a new apppointemt </span>
+                <ng-icon name="featherBookmark"></ng-icon>
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </div>
+
+      <div
+        class="border h-fit border-solid p-2 md:p-4 lg:p-6 xl:p-8 flex flex-col rounded-lg"
+      >
+        <p
+          class="uppercase my-3 flex items-center gap-3 text-sm xs:text-base sm:text-lg xl:text-xl"
+        >
+          <span> Confirmed Appointments</span>
+          <ng-icon name="featherUserCheck"></ng-icon>
+        </p>
+        <div class="flex flex-col justify-end flex-grow">
+          <ng-container *ngIf="appointments.length > 0">
+            <p-accordion class="w-full">
+              <ng-container
+                *ngFor="let apppointemt of appointments; let i = index"
+              >
+                <p-accordionTab *ngIf="apppointemt.approved">
+                  <ng-template pTemplate="header">
+                    <div class="flex items-center gap-3">
+                      <div>
+                        <img
+                          class="max-w-[74px] rounded"
+                          [src]="
+                            'http://localhost:1337' +
+                            apppointemt.service.photo.url
+                          "
+                          alt=""
+                        />
+                      </div>
+                      <p
+                        class="flex flex-col xs:flex-row xs:items-center gap-3 flex-wrap"
+                      >
+                        <span class="text-sm text-gray-700">{{
+                          apppointemt.service.serviceName
+                        }}</span>
+                        <span
+                          class="xs:justify-end flex items-center gap-2 flex-grow flex-shrink"
+                        >
+                          <span class="text-xs">
+                            {{ apppointemt.createdAt | date }}
+                          </span>
+                          <span class="text-xs">
+                            {{ apppointemt.createdAt | date : "shortTime" }}
+                          </span>
+                        </span>
+                      </p>
+                    </div>
+                  </ng-template>
+                  <ng-template pTemplate="content">
+                    <div class="">
+                      <p class="divider divider-vertical mt-0"></p>
+                      <div
+                        class="grid grid-cols-3 gap-2 text-[10px] xs:text-xs md:text-sm lg:text-xs xl:text-sm"
+                      >
+                        <p class="flex items-center gap-3">
+                          <span> Approved : </span>
+                          <span class="flex items-center gap-2">
+                            <span>Yes</span>
+                            <ng-icon
+                              class="text-green-700"
+                              name="featherCheck"
+                            ></ng-icon>
+                          </span>
+                        </p>
+
+                        <p class="flex items-center gap-3">
+                          <ng-icon name="featherUser"></ng-icon>
+                          <span> {{ apppointemt.fullName }} </span>
+                        </p>
+
+                        <p class="flex items-center gap-3">
+                          <ng-icon name="simpleGmail"></ng-icon>
+                          <span> {{ apppointemt.email }} </span>
+                        </p>
+                        <p class="col-span-full divider divider-vertical"></p>
+                        <p class="capitalize col-span-full">
+                          <span> appointment date & time : </span>
+                          <span class="font-bold">
+                            {{ apppointemt.date | date }} /
+                            {{ apppointemt.time?.slice(0, 5) }}
+                          </span>
+                        </p>
+                      </div>
+                    </div>
+                  </ng-template>
+                </p-accordionTab>
+              </ng-container>
+            </p-accordion>
+          </ng-container>
+          <ng-container *ngIf="!confirmedAppointments">
+            <div class="my-4 uppercase">
+              <p class="text-gray-700 text-sm">
+                Theres Not Confirmed Appointments!
+              </p>
+              <button
+                routerLink="/appointment"
+                class="btn btn-primary flex items-center gap-3 mt-4"
+              >
+                <span> Make a new apppointemt </span>
+                <ng-icon name="featherBookmark"></ng-icon>
+              </button>
+            </div>
+          </ng-container>
+        </div>
+      </div>
     </div>
   </div>
 </section>

@@ -12,42 +12,13 @@
       [formGroup]="appointment"
     >
       <div class="flex flex-col gap-y-2 capitalize">
-        <label for="firstName">first name</label>
+        <label for="lastName">full Name</label>
         <input
-          pInputText
+          [readOnly]="true"
           [ngClass]="
-            appointment.controls.firstName.pristine
+            appointment.controls.fullName.pristine
               ? ''
-              : appointment.controls.firstName.status === 'VALID'
-              ? 'border-green-600'
-              : 'border-red-600'
-          "
-          required
-          type="text"
-          id="firstName"
-          class="p-inputtext-lg"
-          placeholder="first name"
-          formControlName="firstName"
-        />
-        <small class="text-red-700 text-sm lowercase">
-          {{
-            !appointment.controls.firstName.pristine && errors.firstName
-              ? errors.firstName["required"]
-                ? "this filed is required"
-                : errors.firstName["spaceInName"]
-                ? "please  do not include space and symbol or number in your name "
-                : ""
-              : ""
-          }}
-        </small>
-      </div>
-      <div class="flex flex-col gap-y-2 capitalize">
-        <label for="lastName">last Name</label>
-        <input
-          [ngClass]="
-            appointment.controls.lastName.pristine
-              ? ''
-              : appointment.controls.lastName.status === 'VALID'
+              : appointment.controls.fullName.status === 'VALID'
               ? 'border-green-600'
               : 'border-red-600'
           "
@@ -56,20 +27,8 @@
           id="lastName"
           type="text"
           class="p-inputtext-lg"
-          placeholder="last name"
-          formControlName="lastName"
+          formControlName="fullName"
         />
-        <small class="text-red-700 text-sm lowercase">
-          {{
-            !appointment.controls.lastName.pristine && errors.lastName
-              ? errors.lastName["required"]
-                ? "this filed is required"
-                : errors.lastName["spaceInName"]
-                ? "please  do not include space and symbol or number in your name "
-                : ""
-              : ""
-          }}
-        </small>
       </div>
       <div class="flex flex-col gap-y-2 capitalize">
         <label for="age">age</label>
@@ -172,36 +131,34 @@
 
         <p-dropdown
           [ngStyle]="
-            !appointment.controls.services.pristine
-              ? appointment.controls.services.status === 'INVALID'
-                ? {
-                    border: '2px solid #F72C08',
-                    'border-radius': '8px'
-                  }
-                : { border: '2px solid #16A34A', 'border-radius': '8px' }
-              : {}
+            !seletedService.photo
+              ? {
+                  border: '2px solid #F72C08',
+                  'border-radius': '8px'
+                }
+              : { border: '2px solid #16A34A', 'border-radius': '8px' }
           "
           [options]="services"
           class="flex items-center w-full h-[54px]"
           id="services"
           formControlName="services"
           styleClass="dropdownFull h-5"
-          optionLabel="name"
+          optionLabel="serviceName"
           [showClear]="false"
           placeholder="Select a Service"
         >
           <ng-template pTemplate="selectedItem">
             <div
               class="flex items-center gap-2 IdontKNow"
-              *ngIf="seletedService.name === '' ? false : true"
+              *ngIf="seletedService.serviceName === '' ? false : true"
             >
               <img
                 class="w-10 aspect-square rounded-md"
-                [src]="seletedService.image"
+                [src]="'http://localhost:1337' + seletedService.photo"
                 alt=" "
               />
               <div>
-                {{ seletedService.name }}
+                {{ seletedService.serviceName }}
               </div>
             </div>
           </ng-template>
@@ -209,52 +166,30 @@
             <div class="flex items-center gap-2">
               <img
                 class="w-10 aspect-square rounded-md"
-                [src]="service.image"
+                [src]="'http://localhost:1337' + service.photo"
                 alt="service image"
               />
-              <div>{{ service.name }}</div>
+              <div>{{ service.serviceName }}</div>
             </div>
           </ng-template>
         </p-dropdown>
         <small class="text-red-700 text-sm lowercase">
-          {{
-            !appointment.controls.services.pristine
-              ? errors.services
-                ? errors.services["serviceInvalid"]
-                  ? "Please choose a valid service"
-                  : ""
-                : ""
-              : ""
-          }}
+          {{ !seletedService.photo ? "Please choose a valid service" : "" }}
         </small>
       </div>
       <div class="flex flex-col gap-y-2 capitalize">
         <label class="opacity-0" for="">Wooooooooow</label>
         <button
-          [disabled]="appointment.status === 'INVALID'"
+          [disabled]="appointment.status === 'INVALID' && !err"
           (click)="submit()"
           class="btn py-1 btn-primary disabled:btn-disabled transition-all ease-linear duration-300"
         >
           BOOK
         </button>
+        <small class="text-red-700 ml-4" *ngIf="err">
+          {{ err }}
+        </small>
       </div>
     </form>
   </div>
-  <section
-    [ngClass]="isOpen ? ' opacity-1 top-0' : ' opacity-0 top-[200%]'"
-    class="fixed z-[999999999999999999999999] left-0 w-full h-full transition-all duration-500 ease-linear flex items-center justify-center"
-  >
-    <div
-      (click)="toggleIsOpen()"
-      [ngClass]="isOpen ? 'opacity-1' : ' opacity-0'"
-      class="absolute top-0 left-0 w-full h-full transition-all ease-linear duration-300 bg-gray-900 opacity-[30%]"
-    ></div>
-
-    <app-appointment-modal
-      [userInfo]="userInfo"
-      [isOpen]="isOpen"
-      (toggleIsOpenToFalse)="toggleIsOpen()"
-      class="z-10"
-    />
-  </section>
 </section>

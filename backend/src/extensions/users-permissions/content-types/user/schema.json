@@ -77,6 +77,19 @@
       "unique": false,
       "min": 0,
       "max": 5
+    },
+    "fullName": {
+      "type": "string",
+      "required": true,
+      "unique": true
+    },
+    "gender": {
+      "type": "enumeration",
+      "enum": [
+        "male",
+        "female"
+      ],
+      "required": true
     }
   }
 }
