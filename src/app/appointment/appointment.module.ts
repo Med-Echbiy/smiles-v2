@@ -5,13 +5,15 @@ import { AppointmentFormComponent } from './appointment-form/appointment-form.co
 import { NgIconsModule } from '@ng-icons/core';
 import { InputTextModule } from 'primeng/inputtext';
 import { DropdownModule } from 'primeng/dropdown';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+// import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { CalendarModule } from 'primeng/calendar';
+import { appointmentRoutingModule } from './appointment-routing.module';
 @NgModule({
   declarations: [AppointmentFormComponent],
   imports: [
     CommonModule,
-    BrowserAnimationsModule,
+    appointmentRoutingModule,
+    // BrowserAnimationsModule,
     InputTextModule,
     NgIconsModule.withIcons({}),
     ReactiveFormsModule,

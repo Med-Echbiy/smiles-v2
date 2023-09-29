@@ -2,7 +2,6 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProfileRoutingModule } from './profile-routing.module';
 import { UserProfileComponent } from './user-profile/user-profile.component';
-import { MyAppointmentsComponent } from './my-appointments/my-appointments.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { AccordionModule } from 'primeng/accordion';
 import {
@@ -17,11 +16,7 @@ import { NgIconsModule } from '@ng-icons/core';
 import { simpleGmail } from '@ng-icons/simple-icons';
 
 @NgModule({
-  declarations: [
-    UserProfileComponent,
-    MyAppointmentsComponent,
-    NavbarComponent,
-  ],
+  declarations: [UserProfileComponent, NavbarComponent],
   imports: [
     CommonModule,
     ProfileRoutingModule,

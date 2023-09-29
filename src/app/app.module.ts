@@ -30,7 +30,6 @@ import { SectionFourComponent } from './home/section/section-four/section-four.c
 import { SectionFiveComponent } from './home/section/section-five/section-five.component';
 import { SectionSixComponent } from './home/section/section-six/section-six.component';
 import { AboutPageModule } from './about-page/about-page.module';
-import { AppointmentModule } from './appointment/appointment.module';
 import { NavigationEnd, Router } from '@angular/router';
 import { RedirectComponent } from './RedirectPage/redirect/redirect.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -80,7 +79,6 @@ import { LoginComponent } from './login/login.component';
 
     CarouselModule,
     AboutPageModule,
-    AppointmentModule,
     DropdownModule,
   ],
   providers: [],

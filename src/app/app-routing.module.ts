@@ -1,11 +1,7 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
-import { OurServiceComponent } from './service-page/our-service/our_service.component';
-import { ServicePageModule } from './service-page/service-page.module';
-import { ContactUsModule } from './contact-us/contact-us.module';
 import { AboutComponent } from './about-page/about/about.component';
-import { AppointmentFormComponent } from './appointment/appointment-form/appointment-form.component';
 import { RedirectComponent } from './RedirectPage/redirect/redirect.component';
 import { RegisterComponent } from './register/register.component';
 import {
@@ -37,7 +33,10 @@ const routes: Routes = [
   },
   {
     path: 'appointment',
-    component: AppointmentFormComponent,
+    loadChildren: () =>
+      import('./appointment/appointment.module').then(
+        (m) => m.AppointmentModule
+      ),
     canActivate: [notAuthenticationGuard],
   },
   {
