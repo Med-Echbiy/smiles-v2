@@ -1,5 +1,5 @@
 module.exports = ({ env }) => ({
-  host: env("HOST", "https://dental-braces.onrender.com"),
+  host: env("HOST", "dental-braces.onrender.com"),
   port: env.int("PORT", 1337),
   app: {
     keys: [
