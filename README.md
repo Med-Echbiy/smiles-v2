@@ -1,27 +1,33 @@
-# Smiles
+# Dentist Website
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.2.1.
+![Project Screenshots](/src/assets/screenshot-1.png)
+![Project Screenshots](/src/assets/screenshot-2.png)
+![Project Screenshots](/src/assets/screenshot-3.png)
 
-## Development server
+## Overview
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+This project is a dentist website built using Angular on the frontend and Strapi on the backend. It provides a user-friendly interface for visitors to access information about the dental services, book appointments, manage their profiles, and more.
 
-## Code scaffolding
+## Features
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+- **Homepage**: A welcoming landing page with an introduction to the dental clinic and its services.
 
-## Build
+- **Book Appointment**: Visitors can easily schedule dental appointments online, selecting preferred dates and times.
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+- **My Profile**: Registered users can access and manage their profiles, view appointment history, and update personal information.
 
-## Running unit tests
+- **Login & Register**: Secure authentication system for users to log in or create new accounts.
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+- **About Us**: An informative page about the dental clinic, its team, and its mission.
 
-## Running end-to-end tests
+- **Services**: Details about the dental services offered, including descriptions, pricing, and more.
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+- **Contact Us**: A contact page with contact information, a contact form, and a map for easy communication.
 
-## Further help
+## Getting Started
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.io/cli) page.
+1. **Clone the Repository**:
+
+   ```bash
+   git clone https://github.com/yourusername/dentist-website.git
+   ```
