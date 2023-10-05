@@ -40,7 +40,7 @@ export class AuthenticationService {
     let valid = false;
     try {
       const data$ = this.http.post<UserInfo>(
-        'http://localhost:1337/api/auth/local',
+        'https://dentist-strapi.onrender.com/api/auth/local',
         {
           identifier: email,
           password: password,
@@ -79,7 +79,7 @@ export class AuthenticationService {
   }) {
     try {
       const req = this.http.post<UserInfo>(
-        'http://localhost:1337/api/auth/local/register?populate=*',
+        'https://dentist-strapi.onrender.com/api/auth/local/register?populate=*',
         {
           username,
           password,

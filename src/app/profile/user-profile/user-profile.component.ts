@@ -90,7 +90,7 @@ export class UserProfileComponent implements OnInit {
   // };
   async ngOnInit(): Promise<void> {
     const userData = this.http.get<Data>(
-      `http://localhost:1337/api/users/${this.token.user.id}?populate[appointments][populate][service][fields][0]=serviceName&populate[appointments][populate][service][populate][photo][fields][0]=url`,
+      `https://dentist-strapi.onrender.com/api/users/${this.token.user.id}?populate[appointments][populate][service][fields][0]=serviceName&populate[appointments][populate][service][populate][photo][fields][0]=url`,
       {
         headers: {
           Authorization: `Bearer ${this.token.jwt}`,
@@ -113,7 +113,7 @@ export class UserProfileComponent implements OnInit {
     };
     try {
       const req = this.http.put(
-        `http://localhost:1337/api/users/${this.token.user.id}`,
+        `https://dentist-strapi.onrender.com/api/users/${this.token.user.id}`,
         update,
         {
           headers: {
@@ -125,7 +125,7 @@ export class UserProfileComponent implements OnInit {
       const res = await lastValueFrom(req);
       console.log('==========resutl=========');
       const userData = this.http.get<Data>(
-        `http://localhost:1337/api/users/${this.token.user.id}`,
+        `https://dentist-strapi.onrender.com/api/users/${this.token.user.id}`,
         {
           headers: {
             Authorization: `Bearer ${this.token.jwt}`,

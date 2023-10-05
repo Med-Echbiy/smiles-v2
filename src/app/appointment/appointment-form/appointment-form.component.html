@@ -154,7 +154,7 @@
             >
               <img
                 class="w-10 aspect-square rounded-md"
-                [src]="'http://localhost:1337' + seletedService.photo"
+                [src]="seletedService.photo"
                 alt=" "
               />
               <div>
@@ -166,7 +166,7 @@
             <div class="flex items-center gap-2">
               <img
                 class="w-10 aspect-square rounded-md"
-                [src]="'http://localhost:1337' + service.photo"
+                [src]="service.photo"
                 alt="service image"
               />
               <div>{{ service.serviceName }}</div>

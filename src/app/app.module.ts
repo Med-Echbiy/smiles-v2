@@ -5,6 +5,7 @@ import { AppComponent } from './app.component';
 import { NavComponent } from './navbar/nav/nav.component';
 import { LayoutComponent } from './layout/layout.component';
 import { DropdownModule } from 'primeng/dropdown';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 import { NgIconsModule } from '@ng-icons/core';
 import {
@@ -59,6 +60,7 @@ import { LoginComponent } from './login/login.component';
   ],
   imports: [
     BrowserModule,
+    BrowserAnimationsModule,
     HttpClientModule,
     AppRoutingModule,
     NgIconsModule.withIcons({

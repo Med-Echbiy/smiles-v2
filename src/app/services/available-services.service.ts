@@ -29,7 +29,7 @@ export class AvailableServicesService {
   async fetchServices() {
     try {
       const req = this.http.get<{ data: HttpRes[] }>(
-        'http://localhost:1337/api/services?populate=photo'
+        'https://dentist-strapi.onrender.com/api/services?populate=photo'
       );
       const res = await lastValueFrom(req);
 
@@ -38,6 +38,7 @@ export class AvailableServicesService {
         serviceName: element.attributes.serviceName,
         photo: element.attributes.photo.data.attributes.url,
       }));
+      // console.log(this.services);
       return { status: 200, data: this.services };
     } catch (error) {
       return { status: 500, error: error } as {

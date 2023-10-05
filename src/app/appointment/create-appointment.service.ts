@@ -31,7 +31,7 @@ export class CreateAppointmentService {
     console.log(dataObj);
     try {
       const data = this.http.post(
-        'http://localhost:1337/api/appointments',
+        'https://dentist-strapi.onrender.com/api/appointments',
         dataObj,
         {
           headers: {
