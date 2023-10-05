@@ -78,7 +78,6 @@ import { LoginComponent } from './login/login.component';
     InputTextModule,
     PasswordModule,
     ReactiveFormsModule,
-
     CarouselModule,
     AboutPageModule,
     DropdownModule,
